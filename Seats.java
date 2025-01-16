@@ -3,7 +3,7 @@ import java.util.*;
 public class Seats implements Airport{
 
     /** initialized by False value */
-    boolean[][] avail_seats = new boolean[PLANE_ROW][PLANE_COL];
+    private boolean[][] avail_seats = new boolean[PLANE_ROW][PLANE_COL];
 
     /** constructor : initialize boolean 2d arr*/
     Seats()
@@ -15,6 +15,13 @@ public class Seats implements Airport{
         }
     }
 
+    @Override
+    public void startScreen(String theme)
+    {
+        System.out.println("**********************************");
+        System.out.println("\t\t\t\t" + theme);
+        System.out.println("**********************************");
+    }
 
     @Override
     public void showList()
@@ -45,10 +52,12 @@ public class Seats implements Airport{
         }
     }
 
-
     @Override
     public LinkedList<?> deleteUserInfo()
     {
+
+
+
         return null;
     }
 

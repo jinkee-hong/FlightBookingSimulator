@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 
 public interface Airport {
@@ -7,10 +8,11 @@ public interface Airport {
     int PLANE_COL = 5;
 
 
-
+    /**Print Basic Screen*/
+    void startScreen(String theme) throws IOException;
     /**show what's inside of the list
      * ex. ROW, COL of seats*/
-    void showList();
+    void showList() throws IOException;
 
     /** delete user info*/
     LinkedList<?> deleteUserInfo();
