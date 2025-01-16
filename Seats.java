@@ -24,7 +24,7 @@ public class Seats implements Airport{
         for (int i = 0; i < PLANE_COL; i++) {
             System.out.print("---------");
         }
-        
+
         System.out.println();
 
         System.out.print('\t');
