@@ -1,3 +1,5 @@
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class Seats implements Airport{
@@ -19,7 +21,7 @@ public class Seats implements Airport{
     public void startScreen(String theme)
     {
         System.out.println("**********************************");
-        System.out.println("\t\t\t\t" + theme);
+        System.out.println("\t\t" + theme);
         System.out.println("**********************************");
     }
 
@@ -62,8 +64,36 @@ public class Seats implements Airport{
     }
 
     @Override
-    public HashMap<Integer,Integer> search()
+    public HashMap<Integer,String> search()
     {
+        Scanner sc = new Scanner(System.in);
+        Class<?> cls = Flights.class;
+        HashMap<Integer,String> h_result = new HashMap<Integer,String>();
+
+        try {
+            Constructor<?> constructor = cls.getDeclaredConstructor();
+            String keyword = sc.next();
+            Flights flights_seats = (Flights) constructor.newInstance();
+            int idx = 0;
+            while(flights_seats.airport_name != null)
+            {
+                if(keyword.equals(flights_seats.airport_name.get(idx)))
+                {
+                    System.out.println("FOUND THE AIRPORT!");
+                     h_result.put(idx,flights_seats.airport_name.get(idx));
+                     return h_result;
+                }
+            }
+
+            System.out.println("NO SUCH RESULT FOUNDED");
+
+        }
+        catch(InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e)
+        {
+            System.err.println("Failed to Create Instance");
+        }
+
+
 
         // in case search fails
         return null;

@@ -29,7 +29,7 @@ public class Manager {
     public int startScreen()
     {
         System.out.println("**********************************");
-        System.out.println("\t\t\t\t" + "FLIGHT SIMULATOR");
+        System.out.println("\t\t" + "FLIGHT SIMULATOR");
         System.out.println("**********************************");
 
         return printOptions();
@@ -44,6 +44,7 @@ public class Manager {
         for(Options i : Options.values())
         {
             System.out.println(cnt +". " + i.str);
+            cnt++;
         }
 
         return choiceOptions();

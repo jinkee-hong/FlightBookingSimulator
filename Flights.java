@@ -3,28 +3,32 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class Flights implements Airport{
+public class Flights implements Airport {
 
     // create 3 vars to store from text file
-    private LinkedList<String> airport_name;
-    private LinkedList<String> location;
-    private LinkedList<Integer> airport_code;
+    public LinkedList<String> airport_name;
+    protected LinkedList<String> location;
+    protected LinkedList<Integer> airport_code;
+    protected String[][] customer_token = new String[3][1];
 
     FileReader fileReader;
-    private enum BasicInfo
-    {
+
+    private enum BasicInfo {
         FROM("FROM"),
         TO("TO"),
         FLIGHT_DATE("Flight Date");
         private String str = null;
-        BasicInfo(String str)
-        {
-            this.str= str;
+
+        BasicInfo(String str) {
+            this.str = str;
         }
     }
-    Flights() throws FileNotFoundException,IOException {
+
+    Flights() throws FileNotFoundException, IOException {
         fileReader = new FileReader("C:\\Users\\simpl\\FlightBookingSimulator\\airports.txt");
-        showList();
+        airport_name = new LinkedList<String>();
+        location = new LinkedList<String>();
+        airport_code = new LinkedList<Integer>();
     }
 
     @Override
@@ -36,39 +40,45 @@ public class Flights implements Airport{
 
     }
 
-    @Override
-    public void showList() throws IOException {
+    public void parseList() throws IOException {
         int ch;
         int round = 1;
-        String str = null;
-        while((ch = fileReader.read()) != -1)
-        {
-            if(ch != ';')
-            {
-                System.out.print((char)ch);
-                str +=  (char)ch;
-            }
-            else
-            {
-                round %=4 ;
-                if(round == 1) // airport name
+        String str = "";
+        while ((ch = fileReader.read()) != -1) {
+            if (ch != ';' && ch != '\n') {
+                str += (char) ch;
+            } else {
+                round %= 4;
+
+                if (round == 1) // airport name
                 {
-                    airport_name.add(str); // TODO : FIX ERROR NULLPOINTER EXCEPTION
-                }
-                else if( round == 2) // location
+                    airport_name.add(str);
+                } else if (round == 2) // location
                 {
                     location.add(str);
-                }
-                else if(round == 0) // airport code
+                } else if (round == 0) // airport code
                 {
-                    assert str != null;
-                    airport_code.add(Integer.parseInt(str));
+                    try {
+                        airport_code.add(Integer.parseInt(str));
+                    } catch (NumberFormatException e) {
+                        airport_code.add(-1);
+                    }
+
                 }
-                str = null; // reinitialize str variable
+                str = ""; // reinitialize str variable
                 round++;
             }
 
         }
+    }
+
+    @Override
+    public void showList() throws IOException {
+        parseList(); // parse text into LinkedList to show them
+        for (int j = 0; j < airport_name.size(); j++) {
+            System.out.println((j + 1) + ". " + airport_name.get(j));
+        }
+
     }
 
     @Override
@@ -81,5 +91,27 @@ public class Flights implements Airport{
         return null;
     }
 
+    /** return customer type Objects */
+    public Customer selectOptions() {
 
+        Scanner sc = new Scanner(System.in);
+        int[] temp = new int[2];
+        int count = 0;
+        String temp_str = "";
+        for (BasicInfo i : BasicInfo.values())
+        {
+            System.out.println("\t"+i.str);
+            System.out.println("----------------");
+            if(!i.str.equals("FLIGHTS DATE")) {
+                temp[count] = sc.nextInt();
+                count++;
+            }
+            else
+            {
+                temp_str = sc.next();
+            }
+        }
+
+        return new Customer(temp[0],temp[1],temp_str);
+    }
 }

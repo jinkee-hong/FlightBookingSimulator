@@ -6,16 +6,14 @@ public class Main {
         Manager mng = new Manager();
         Flights flights = new Flights();
 
-        flights.showList();
-        /*boolean flight_booking_token = true;//true for testing
+        boolean flight_booking_token = true;//true for testing
         while(true)
         {
-            // TODO : INPUT PERSONS,PETS
             switch(mng.startScreen())
             {
                 //질문
                 case 1: // BOOK FLIGHTS
-
+                        flights.showList();
                     break;
                 case 2: // BOOK SEATS
                     if(flight_booking_token)
@@ -36,7 +34,7 @@ public class Main {
                     break;
 
             }
-        }*/
+        }
 
     }
 

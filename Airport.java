@@ -18,8 +18,4 @@ public interface Airport {
     LinkedList<?> deleteUserInfo();
 
     /** search */
-    HashMap<?,?>  search();
-
-
-
-}
+    HashMap<?,?>  search();}
