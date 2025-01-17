@@ -25,7 +25,7 @@ public class Flights implements Airport {
     }
 
     Flights() throws FileNotFoundException, IOException {
-        fileReader = new FileReader("C:\\Users\\simpl\\FlightBookingSimulator\\airports.txt");
+        fileReader = new FileReader("airports.txt");
         airport_name = new LinkedList<String>();
         location = new LinkedList<String>();
         airport_code = new LinkedList<Integer>();
@@ -147,7 +147,7 @@ public class Flights implements Airport {
         }
         catch(IndexOutOfBoundsException e)
         {
-            System.err.println("NO SUCH ELEMENTS ARE IN LIST");
+            System.err.println("NO SUCH ELEMENTS IS IN LIST");
         }
 
         return null;
