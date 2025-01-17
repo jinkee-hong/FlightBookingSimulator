@@ -13,12 +13,15 @@ public class Main {
             {
                 //질문
                 case 1: // BOOK FLIGHTS
-                        flights.showList();
+                    flights.showList();
+                    // add customer obj into customer linkedlist
+                    mng.customerLinkedList.add(flights.selectOptions(mng));
                     break;
                 case 2: // BOOK SEATS
                     if(flight_booking_token)
                     {
                         mng.seats.startScreen("CHOOSE YOUR SEATS");
+                        mng.seats.showList();
                     }
                     else
                     {

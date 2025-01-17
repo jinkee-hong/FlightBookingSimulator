@@ -1,9 +1,11 @@
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Manager {
 
     public Seats seats = new Seats();
+    public LinkedList<Customer> customerLinkedList = new LinkedList<>();
 
 
 
@@ -70,6 +72,7 @@ public class Manager {
     public void exit()
     {
         System.out.println("CLOSE THE PROGRAM");
+        System.exit(0);
     }
 
 }

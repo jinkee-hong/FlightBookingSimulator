@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Flights implements Airport {
@@ -9,7 +10,6 @@ public class Flights implements Airport {
     public LinkedList<String> airport_name;
     protected LinkedList<String> location;
     protected LinkedList<Integer> airport_code;
-    protected String[][] customer_token = new String[3][1];
 
     FileReader fileReader;
 
@@ -92,7 +92,7 @@ public class Flights implements Airport {
     }
 
     /** return customer type Objects */
-    public Customer selectOptions() {
+    public Customer selectOptions(Manager mng) {
 
         Scanner sc = new Scanner(System.in);
         int[] temp = new int[2];
@@ -102,7 +102,7 @@ public class Flights implements Airport {
         {
             System.out.println("\t"+i.str);
             System.out.println("----------------");
-            if(!i.str.equals("FLIGHTS DATE")) {
+            if(!i.str.equals("Flight Date")) {
                 temp[count] = sc.nextInt();
                 count++;
             }
@@ -112,6 +112,45 @@ public class Flights implements Airport {
             }
         }
 
-        return new Customer(temp[0],temp[1],temp_str);
+        return checkValidity(temp[0],temp[1],temp_str);
     }
+
+    public Customer checkValidity(int from, int to , String date)
+    {
+        Scanner sc = new Scanner(System.in);
+        String temp = "";
+        int curr_year = Calendar.getInstance().get(Calendar.YEAR);
+        try{
+           String air_from =  airport_name.get(from);
+           String air_to = airport_name.get(to);
+
+
+            for (int i = 0; i < date.length(); i++) {
+                temp += date.charAt(i);
+                if(i % 4 == 0 && i != 0)
+                {
+                    if(Integer.parseInt(temp) != curr_year)
+                    {
+                        System.out.println("ONLY ALLOWED TO BOOK A FLIGHTS IN CURRENT YEAR");
+                        System.out.println("YOU CAN INSERT THE DATE AGAIN");
+                        date = sc.next();
+                        i = -1;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return new Customer(air_from,air_to,date);
+        }
+        catch(IndexOutOfBoundsException e)
+        {
+            System.err.println("NO SUCH ELEMENTS ARE IN LIST");
+        }
+
+        return null;
+    }
+
 }

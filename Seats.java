@@ -53,7 +53,6 @@ public class Seats implements Airport{
             System.out.println();
         }
     }
-
     @Override
     public LinkedList<?> deleteUserInfo()
     {
@@ -98,7 +97,5 @@ public class Seats implements Airport{
         // in case search fails
         return null;
     }
-
-
 
 }
