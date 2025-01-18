@@ -7,6 +7,32 @@ public class Manager {
     public Seats seats = new Seats();
     public LinkedList<Customer> customerLinkedList = new LinkedList<>();
 
+    public enum ToolMenu{
+
+        SEARCH("Search"),
+        INSERT("Insert Data");
+        private String str;
+
+        ToolMenu(String str)
+        {
+            this.str = str;
+        }
+    }
+
+
+    public enum Orders{
+        ENTER_FROM("Departure"),
+        ENTER_TO("Destination"),
+        ENTER_DATE("Date");
+
+        private String str;
+
+        Orders(String str)
+        {
+            this.str = str;
+        }
+
+    }
 
 
     public enum Options
@@ -67,6 +93,49 @@ public class Manager {
 
         return sel;
     }
+
+    public Customer enterBasicInfo(Seats seats, Flights flights)
+    {
+        for(Orders i : Orders.values())
+        {
+            System.out.println(i.str);
+            System.out.println("----------------");
+            while(true) {
+                toolMenus(flights);
+            }
+        }
+
+        // TODO : return Customer Class
+        return new Customer()
+    }
+
+    public String[] toolMenus( Flights flights)
+    {
+        Scanner sc =new Scanner(System.in);
+        int choice = 0,cnt =1;
+        String airport = "";
+
+            for(ToolMenu i : ToolMenu.values())
+            {
+                System.out.println(cnt + ". " +i.str);
+                cnt++;
+            }
+            choice = sc.nextInt();
+            switch(choice)
+            {
+                case 1: // Search
+                    System.out.println("INPUT SEARCH KEYWORD");
+                    System.out.println("---------------------");
+                    String keyword = sc.next();
+                    flights.search(keyword);
+                    break;
+                case 2: // Input data
+                    // TODO : Add input data method in Flights class
+                    break;
+            }
+    }
+
+
 
     // TODO : add user purchased history
     public void exit()

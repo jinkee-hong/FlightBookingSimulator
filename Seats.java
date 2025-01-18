@@ -63,39 +63,9 @@ public class Seats implements Airport{
     }
 
     @Override
-    public HashMap<Integer,String> search()
+    public void search(String str)
     {
-        Scanner sc = new Scanner(System.in);
-        Class<?> cls = Flights.class;
-        HashMap<Integer,String> h_result = new HashMap<Integer,String>();
 
-        try {
-            Constructor<?> constructor = cls.getDeclaredConstructor();
-            String keyword = sc.next();
-            Flights flights_seats = (Flights) constructor.newInstance();
-            int idx = 0;
-            while(flights_seats.airport_name != null)
-            {
-                if(keyword.equals(flights_seats.airport_name.get(idx)))
-                {
-                    System.out.println("FOUND THE AIRPORT!");
-                     h_result.put(idx,flights_seats.airport_name.get(idx));
-                     return h_result;
-                }
-            }
-
-            System.out.println("NO SUCH RESULT FOUNDED");
-
-        }
-        catch(InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e)
-        {
-            System.err.println("Failed to Create Instance");
-        }
-
-
-
-        // in case search fails
-        return null;
     }
 
 }

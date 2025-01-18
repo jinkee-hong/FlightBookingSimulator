@@ -18,4 +18,4 @@ public interface Airport {
     LinkedList<?> deleteUserInfo();
 
     /** search */
-    HashMap<?,?>  search();}
+    void  search(String str);}

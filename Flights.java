@@ -82,8 +82,15 @@ public class Flights implements Airport {
     }
 
     @Override
-    public HashMap<?, ?> search() {
-        return null;
+    public void search(String str) {
+
+        for (int i = 0; i < airport_name.size(); i++) {
+            if(str.equals(airport_name.get(i)))
+            {
+                System.out.println("THERE IS " + airport_name.get(i));
+            }
+        }
+        System.out.println("SEARCH FAILED");
     }
 
 
