@@ -32,13 +32,11 @@ public class Flights implements Airport {
     }
 
     @Override
-    public void startScreen(String theme) {
+    public void startScreen(String theme) throws IOException {
         System.out.println("**********************************");
         System.out.println("\t\t\t\t" + theme);
         System.out.println("**********************************");
-
-
-    }
+     }
 
     public void parseList() throws IOException {
         int ch;
@@ -73,9 +71,9 @@ public class Flights implements Airport {
     }
 
     @Override
-    public void showList() throws IOException {
+    public void showList() throws IOException{
         parseList(); // parse text into LinkedList to show them
-        for (int j = 0; j < airport_name.size(); j++) {
+         for (int j = 0; j < airport_name.size(); j++) {
             System.out.println((j + 1) + ". " + airport_name.get(j));
         }
 
@@ -92,7 +90,7 @@ public class Flights implements Airport {
     }
 
     /** return customer type Objects */
-    public Customer selectOptions(Manager mng) {
+    public Customer selectOptions() throws IOException {
 
         Scanner sc = new Scanner(System.in);
         int[] temp = new int[2];
@@ -115,42 +113,56 @@ public class Flights implements Airport {
         return checkValidity(temp[0],temp[1],temp_str);
     }
 
-    public Customer checkValidity(int from, int to , String date)
+    public Customer checkValidity(int from, int to , String date) throws IOException
     {
         Scanner sc = new Scanner(System.in);
         String temp = "";
         int curr_year = Calendar.getInstance().get(Calendar.YEAR);
-        try{
-           String air_from =  airport_name.get(from);
-           String air_to = airport_name.get(to);
+
+        String air_from = checkNumberRange(from);
+        String air_to = checkNumberRange(to);
 
 
-            for (int i = 0; i < date.length(); i++) {
-                temp += date.charAt(i);
-                if(i % 4 == 0 && i != 0)
+        for (int i = 0; i < date.length(); i++) {
+            temp += date.charAt(i);
+            if(i % 3 == 0 && i != 0)
+            {
+                if(Integer.parseInt(temp) != curr_year)
                 {
-                    if(Integer.parseInt(temp) != curr_year)
-                    {
-                        System.out.println("ONLY ALLOWED TO BOOK A FLIGHTS IN CURRENT YEAR");
-                        System.out.println("YOU CAN INSERT THE DATE AGAIN");
-                        date = sc.next();
-                        i = -1;
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    System.out.println("ONLY ALLOWED TO BOOK A FLIGHTS IN CURRENT YEAR");
+                    System.out.println("YOU CAN INSERT THE DATE AGAIN");
+                    date = sc.next();
+                    i = -1;
+                    temp = ""; // reinitialize temp variable
+                }
+                else
+                {
+                    break;
                 }
             }
+        }
 
             return new Customer(air_from,air_to,date);
-        }
-        catch(IndexOutOfBoundsException e)
-        {
-            System.err.println("NO SUCH ELEMENTS ARE IN LIST");
-        }
 
-        return null;
+    }
+
+    public String checkNumberRange(int element) throws IOException
+    {
+        Scanner sc = new Scanner(System.in);
+        do{
+            if(element > airport_name.size())
+            {
+                System.err.println("NO SUCH ELEMENT IN THE LIST");
+                showList();
+                selectOptions();
+            }
+            else
+            {
+                System.out.println("YOU HAVE CHOSEN " + airport_name.get(element));
+
+            }
+        }while(element >= airport_name.size() || element < 0);
+        return airport_name.get(element);
     }
 
 }
