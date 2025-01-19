@@ -4,6 +4,20 @@ import java.util.*;
 
 public class Seats implements Airport{
 
+
+    public enum SeatOptions
+    {
+        ECONOMY("Economy"),
+        BUSINESS("Business");
+        private String str ;
+        SeatOptions(String str)
+        {
+            this.str = str;
+        }
+
+    }
+
+
     /** initialized by False value */
     private boolean[][] avail_seats = new boolean[PLANE_ROW][PLANE_COL];
 

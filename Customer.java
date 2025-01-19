@@ -2,18 +2,21 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Customer{
+    // TODO : Make methods for reservation
 
-    private String from_airport_num = "";
 
-    private String to_airport_num = "";
 
-    private String bounded_date = "";
 
-    private int[][] seatNumber = new int[1][2];
+    private String flight_number;
+    //is it better off managing with string or int?
+    private int seat_option;
+    private int numOfAdults;
+    private int numOfKids;
 
-    Customer(String from_airport_num,String to_airport_num,String bounded_date) {
-        this.from_airport_num = from_airport_num;
-        this.to_airport_num = to_airport_num;
-        this.bounded_date = bounded_date;
+
+    Customer() {
+
     }
+
+
 }

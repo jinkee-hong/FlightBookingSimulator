@@ -4,41 +4,26 @@ import java.util.Scanner;
 
 public class Manager {
 
-    public Seats seats = new Seats();
+    public Customer customer = new Customer();
     public LinkedList<Customer> customerLinkedList = new LinkedList<>();
 
-    public enum ToolMenu{
-
-        SEARCH("Search"),
-        INSERT("Insert Data");
+    public enum BasicInfo{
+        FLIGHT_NUMBER("Flight Number"),
+        SEAT_OPTIONS("Seat options"),
+        ADULTS("Number of Adults"),
+        KIDS("Number of Kids");
         private String str;
 
-        ToolMenu(String str)
-        {
-            this.str = str;
-        }
-    }
-
-
-    public enum Orders{
-        ENTER_FROM("Departure"),
-        ENTER_TO("Destination"),
-        ENTER_DATE("Date");
-
-        private String str;
-
-        Orders(String str)
+        BasicInfo(String str)
         {
             this.str = str;
         }
 
     }
-
-
     public enum Options
     {
-        BOOK_FLIGHTS("Book a flight"),
-        BOOK_SEATS("Book seats"),
+        FLIGHT_LIST("see the flight list"),
+        RESERVATION("Make a Reservation"),
         CHECK_RESERVATION("Check the Reservation"),
         DELETE_RESERVATION("Delete the Reservation"),
         EXIT("Close the program");
@@ -94,51 +79,47 @@ public class Manager {
         return sel;
     }
 
-   /* public Customer enterBasicInfo(Seats seats, Flights flights)
+    public void enterBasicInfo(Seats seats, Flights flights)
     {
-        for(Orders i : Orders.values())
+        for( BasicInfo i :  BasicInfo.values())
         {
             System.out.println(i.str);
             System.out.println("----------------");
-            while(true) {
-                toolMenus(i.str,flights);
-            }
         }
 
-        // TODO : return Customer Class
-        return new Customer()
+
     }
 
-    public String[] toolMenus( String str, Flights flights)
+    public String inputString(String msg,Flights flights)
     {
-        Scanner sc =new Scanner(System.in);
-        int choice = 0,cnt =1;
-        String airport = "";
-
-            for(ToolMenu i : ToolMenu.values())
-            {
-                System.out.println(cnt + ". " +i.str);
-                cnt++;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please Input "+ msg);
+        System.out.println("--------------------");
+        String temp = sc.nextLine();
+        int i = 0 ;
+        while(true)
+        {
+            while (i < flights.flight_number.size()) {
+                if (temp.equals(flights.flight_number.get(i))) {
+                    System.out.println(".....INFO FOUNDED");
+                }
+                i++;
             }
-            choice = sc.nextInt();
-            switch(choice)
-            {
-                case 1: // Search
-                    System.out.println("INPUT SEARCH KEYWORD");
-                    System.out.println("---------------------");
-                    String keyword = sc.next();
-                    flights.search(keyword);
-                    break;
-                case 2: // Input data
-                    // TODO : Add input data method in Flights class
-                    System.out.println("INPUT " + str );
-                    System.out.println("---------------------");
-                    String temp = sc.next();
-                    // TODO : Check validity in method from Manager class
 
-                    break;
-            }
-    }*/
+            // TODO : if search can't find the flight number, be able to reenter the input
+
+        }
+
+        return temp;
+    }
+
+    // TODO :
+    public int inputInteger(String msg,Seats seats)
+    {
+        return -1;
+    }
+
+
 
     // TODO : add user purchased history
     public void exit()

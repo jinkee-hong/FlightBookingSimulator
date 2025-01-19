@@ -31,16 +31,8 @@ public class Main {
                     }
 
                     break;
-                case 2: // BOOK SEATS
-                    if(flight_booking_token)
-                    {
-                        mng.seats.startScreen("CHOOSE YOUR SEATS");
-                        mng.seats.showList();
-                    }
-                    else
-                    {
-                        System.out.println("PLEASE CHOOSE A FLIGHT FIRST");
-                    }
+                case 2: // MAKE RESERVATION
+
                     break;
                 case 3: // CHECK RESERVATION
                     break;
