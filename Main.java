@@ -1,8 +1,10 @@
 import java.io.IOException;
+import java.util.*;
 
 public class Main {
     public static void main(String [] args) throws IOException {
 
+        Scanner sc =new Scanner(System.in);
         Manager mng = new Manager();
         Flights flights = new Flights();
 
@@ -12,8 +14,22 @@ public class Main {
             switch(mng.startScreen())
             {
                 //질문
-                case 1: // BOOK FLIGHTS
-                    flights.showList();
+                case 1: // Under case 1 , it has two sub options
+                    System.out.println("SUB OPTIONS");
+                    System.out.println("--------------");
+                    System.out.println("1. PRINT FLIGHT OPTIONS");
+                    System.out.println("2. SEARCH OPTIONS");
+                    switch(mng.choiceOptions())
+                    {
+                        case 1:
+                            flights.showList();
+                            break;
+                        case 2:
+                            String search_token = sc.nextLine();
+                            flights.search(search_token);
+                            break;
+                    }
+
                     break;
                 case 2: // BOOK SEATS
                     if(flight_booking_token)

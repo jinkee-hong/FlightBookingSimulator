@@ -28,7 +28,7 @@ public class Seats implements Airport{
     @Override
     public void showList()
     {
-        System.out.println("\t\t\t\t\t" + "SEATS" +'\t');
+        System.out.println("\t\t" + "SEATS" +'\t');
 
         for (int i = 0; i < PLANE_COL; i++) {
             System.out.print("---------");

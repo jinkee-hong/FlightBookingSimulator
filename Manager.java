@@ -94,14 +94,14 @@ public class Manager {
         return sel;
     }
 
-    public Customer enterBasicInfo(Seats seats, Flights flights)
+   /* public Customer enterBasicInfo(Seats seats, Flights flights)
     {
         for(Orders i : Orders.values())
         {
             System.out.println(i.str);
             System.out.println("----------------");
             while(true) {
-                toolMenus(flights);
+                toolMenus(i.str,flights);
             }
         }
 
@@ -109,7 +109,7 @@ public class Manager {
         return new Customer()
     }
 
-    public String[] toolMenus( Flights flights)
+    public String[] toolMenus( String str, Flights flights)
     {
         Scanner sc =new Scanner(System.in);
         int choice = 0,cnt =1;
@@ -131,11 +131,14 @@ public class Manager {
                     break;
                 case 2: // Input data
                     // TODO : Add input data method in Flights class
+                    System.out.println("INPUT " + str );
+                    System.out.println("---------------------");
+                    String temp = sc.next();
+                    // TODO : Check validity in method from Manager class
+
                     break;
             }
-    }
-
-
+    }*/
 
     // TODO : add user purchased history
     public void exit()
