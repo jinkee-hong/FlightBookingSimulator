@@ -167,7 +167,11 @@ public class Flights implements Airport {
         month = (rnd.nextInt(12) + 1 );
         if(month == 2)
         {
+<<<<<<< HEAD
             day = (rnd.nextInt(28) + 1 );
+=======
+            System.err.println("NO SUCH ELEMENTS IS IN LIST");
+>>>>>>> 4d11679f6fed41de70b8cdabaee24fd3ab7d3924
         }
         else
         {
