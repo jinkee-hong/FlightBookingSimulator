@@ -4,22 +4,35 @@ import java.util.*;
 
 public class Seats implements Airport{
 
+    /** initialized by False value */
+    private boolean[][] avail_seats = new boolean[PLANE_ROW][PLANE_COL];
+    public int numberOfSeats = PLANE_ROW * PLANE_COL;
+    public int numberOfEconomy = PLANE_ROW * PLANE_COL / 2;
+    public int numberOfBusiness = PLANE_COL * PLANE_ROW / 2;
 
     public enum SeatOptions
     {
-        ECONOMY("Economy"),
-        BUSINESS("Business");
+        ECONOMY("Economy" ,2),
+        BUSINESS("Business",1);
         private String str ;
-        SeatOptions(String str)
+        private int designated_number;
+        SeatOptions(String str,int designated_number)
         {
             this.str = str;
+            this.designated_number = designated_number;
         }
 
+        public String getStr() {
+            return str;
+        }
+
+        public int getDesignated_number() {
+            return designated_number;
+        }
     }
 
 
-    /** initialized by False value */
-    private boolean[][] avail_seats = new boolean[PLANE_ROW][PLANE_COL];
+
 
     /** constructor : initialize boolean 2d arr*/
     Seats()
