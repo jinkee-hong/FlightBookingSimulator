@@ -4,8 +4,8 @@ import java.util.*;
 public interface Airport {
 
     /** PLANE SEATS SIZE */
-    int PLANE_ROW = 10;
-    int PLANE_COL = 5;
+    int PLANE_ROW = 20;
+    int PLANE_COL = 2;
 
 
     /**Print Basic Screen*/
@@ -18,4 +18,4 @@ public interface Airport {
     LinkedList<?> deleteUserInfo();
 
     /** search */
-    HashMap<?,?>  search();}
+    void  search(String str);}
