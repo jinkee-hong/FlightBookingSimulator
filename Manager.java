@@ -4,23 +4,11 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class Manager {
+    public Reservation reservation = new Reservation();
     public Flights flights = new Flights();
     public Seats seats =  new Seats();
-    public LinkedList<Customer> customerLinkedList = new LinkedList<>();
 
-    public enum BasicInfo{
-        FLIGHT_NUMBER("Flight Number"),
-        SEAT_OPTIONS("Seat options"),
-        ADULTS("Number of Adults"),
-        KIDS("Number of Kids");
-        private String str;
 
-        BasicInfo(String str)
-        {
-            this.str = str;
-        }
-
-    }
     public enum Options
     {
         FLIGHT_LIST("see the flight list"),
@@ -48,8 +36,6 @@ public class Manager {
 
         return printOptions();
     }
-
-
 
     public int printOptions()
     {
@@ -80,14 +66,6 @@ public class Manager {
         return sel;
     }
 
-    public void enterBasicInfo(Seats seats, Flights flights)
-    {
-        for( BasicInfo i :  BasicInfo.values())
-        {
-            System.out.println("\t"+ i.str);
-            System.out.println("----------------");
-        }
-    }
 
     public boolean isInteger(String sample)
     {
@@ -99,6 +77,7 @@ public class Manager {
         }
         return false;
     }
+
 
 
     // TODO : add user purchased history

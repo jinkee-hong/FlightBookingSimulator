@@ -49,7 +49,7 @@ public class Main {
                     switch(mng.choiceOptions())
                     {
                         case 1:
-                            mng.enterBasicInfo(mng.seats,mng.flights);
+                            mng.reservation.enterBasicInfo(mng.seats,mng.flights);
                             break;
                         case 2:
 

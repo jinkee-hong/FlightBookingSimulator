@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Seats implements Airport{
 
+    public int[][] seat_info = new int[PLANE_ROW][PLANE_COL];
 
     public enum SeatOptions
     {
