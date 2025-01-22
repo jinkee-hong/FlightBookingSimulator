@@ -1,10 +1,11 @@
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Vector;
 
 public class Manager {
-
-    public Customer customer = new Customer();
+    public Flights flights = new Flights();
+    public Seats seats =  new Seats();
     public LinkedList<Customer> customerLinkedList = new LinkedList<>();
 
     public enum BasicInfo{
@@ -83,42 +84,21 @@ public class Manager {
     {
         for( BasicInfo i :  BasicInfo.values())
         {
-            System.out.println(i.str);
+            System.out.println("\t"+ i.str);
             System.out.println("----------------");
         }
-
-
     }
 
-    public String inputString(String msg,Flights flights)
+    public boolean isInteger(String sample)
     {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please Input "+ msg);
-        System.out.println("--------------------");
-        String temp = sc.nextLine();
-        int i = 0 ;
-        while(true)
-        {
-            while (i < flights.flight_number.size()) {
-                if (temp.equals(flights.flight_number.get(i))) {
-                    System.out.println(".....INFO FOUNDED");
-                }
-                i++;
+        for (int i = 0; i < sample.length(); i++) {
+            if(48 <= sample.charAt(i)&&sample.charAt(i)<= 57)
+            {
+                return true;
             }
-
-            // TODO : if search can't find the flight number, be able to reenter the input
-
         }
-
-        return temp;
+        return false;
     }
-
-    // TODO :
-    public int inputInteger(String msg,Seats seats)
-    {
-        return -1;
-    }
-
 
 
     // TODO : add user purchased history
