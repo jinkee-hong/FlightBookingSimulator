@@ -24,7 +24,7 @@ public class Flights implements Airport {
     protected LinkedList<String> destination;
     protected LinkedList<int[]> takeOff_date;
     protected LinkedList<int[]> landing_date;
-    protected LinkedList<String> flight_number;
+    protected LinkedList<Integer> flight_number;
     FileReader fileReader;
 
     private enum BasicInfo {
@@ -45,7 +45,7 @@ public class Flights implements Airport {
         takeOff_date = new LinkedList<int[]>();
         landing_date = new LinkedList<int[]>();
         destination = new LinkedList<String>();
-        flight_number = new LinkedList<String>();
+        flight_number = new LinkedList<Integer>();
         parseList();
     }
 
@@ -102,7 +102,8 @@ public class Flights implements Airport {
                 }
                 else if(round == 3)
                 {
-                    flight_number.add(str);
+                    // cut /r character
+                    flight_number.add(Integer.parseInt(str.trim()));
                 }
                 str = ""; // reinitialize str variable
                 round++;
@@ -135,26 +136,33 @@ public class Flights implements Airport {
 
     @Override
     public void search(String str) {
-
-        int i = 0 ;
-        boolean isFound = false;
-       while(i < airport_name.size()) {
-            if(str.equalsIgnoreCase(airport_name.get(i)))
-            {
-                System.out.println("THERE IS " + airport_name.get(i));
-                System.out.println("-----------------------------------");
-                System.out.println("Flight Number : " + flight_number.get(i));
-                System.out.println("Departure Location : " + location.get(i));
-                System.out.println("Departure Date : " + takeOff_date.get(i)[1] +"/" + takeOff_date.get(i)[2] + "/" + takeOff_date.get(i)[0]);
-                System.out.println("Arrival Date : " + landing_date.get(i)[1] +"/" + landing_date.get(i)[2] + "/" + landing_date.get(i)[0]);
-                System.out.println("Destination : " + destination.get(i));
-                System.out.println();
-                isFound = true;
+        int i = 0;
+        Vector<Integer> indexes = new Vector<>();
+        while (i < airport_name.size()) {
+            // get the index and store it into vector
+            // so that later we can trace which item was searched.
+            // since customer only search one thing at a time.
+            // that's why I use If statement like this.
+            if (str.equalsIgnoreCase(airport_name.get(i)) || str.equalsIgnoreCase(destination.get(i))) {
+                indexes.add(i);
             }
             i++;
         }
-       if(!isFound)
-            System.out.println("SEARCH FAILED");
+        printResults(indexes);
+    }
+
+    public void search(int flightNumber) {
+
+        int i = 0 ;
+        Vector<Integer> indexes = new Vector<>();
+        while(i < flight_number.size()) {
+            if(flightNumber ==  flight_number.get(i))
+            {
+                indexes.add(i);
+            }
+            i++;
+        }
+        printResults(indexes);
     }
 
     public int[] createRandomDate()
@@ -171,13 +179,35 @@ public class Flights implements Airport {
         if(month == 2)
         {
             day = (rnd.nextInt(28) + 1 );
-            System.err.println("NO SUCH ELEMENTS IS IN LIST");
         }
         else
         {
              day =  (rnd.nextInt(31) + 1 ); ;
         }
         return new int[] {year,month,day};
+    }
+
+    public void printResults(Vector<Integer> indexes)
+    {
+        /*
+        * Idea is
+        * store indexes into vectors and
+        * retrieve all the matches from the list.
+        * */
+        System.out.println("** THERE IS/ARE " + indexes.size() +" NUMBERS OF RESULTS **");
+        System.out.println();
+        for (int i = 0; i < indexes.size(); i++) {
+            System.out.println("** RESULT NUMBER " + (i+1));
+            System.out.println("-----------------------------------");
+            System.out.println("Airport Name : " + airport_name.get(indexes.get(i)));
+            System.out.println("Flight Number : " +  flight_number.get(indexes.get(i)));
+            System.out.println("Departure Location : " + location.get(indexes.get(i)));
+            System.out.println("Departure Date : " + takeOff_date.get(indexes.get(i))[1] + "/" + takeOff_date.get(indexes.get(i))[2] + "/" + takeOff_date.get(indexes.get(i))[0]);
+            System.out.println("Arrival Date : " + landing_date.get(indexes.get(i))[1] + "/" + landing_date.get(indexes.get(i))[2] + "/" + landing_date.get(indexes.get(i))[0]);
+            System.out.println("Destination : " + destination.get(indexes.get(i)));
+            System.out.println();
+        }
+
     }
 
 }
