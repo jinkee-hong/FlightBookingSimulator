@@ -183,7 +183,6 @@ public class Flights implements Airport {
         else
         {
              day =  (rnd.nextInt(31) + 1 ); ;
-            System.err.println("NO SUCH ELEMENTS IS IN LIST");
         }
         return new int[] {year,month,day};
     }
