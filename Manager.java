@@ -66,7 +66,6 @@ public class Manager {
         return sel;
     }
 
-
     public boolean isInteger(String sample)
     {
         for (int i = 0; i < sample.length(); i++) {
@@ -77,7 +76,6 @@ public class Manager {
         }
         return false;
     }
-
 
 
     // TODO : add user purchased history
