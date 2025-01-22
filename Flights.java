@@ -127,13 +127,14 @@ public class Flights implements Airport {
 
             for (int i = 0; i < date.length(); i++) {
                 temp += date.charAt(i);
-                if(i % 4 == 0 && i != 0)
+                if(i % 3 == 0 && i != 0)
                 {
                     if(Integer.parseInt(temp) != curr_year)
                     {
-                        System.out.println("ONLY ALLOWED TO BOOK A FLIGHTS IN CURRENT YEAR");
+                        System.out.println("ONLY ALLOWED TO BOOK FLIGHTS IN CURRENT YEAR");
                         System.out.println("YOU CAN INSERT THE DATE AGAIN");
                         date = sc.next();
+                        temp = "" ; //reinitialize temp variable
                         i = -1;
                     }
                     else
