@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.util.*;
 
 public class Reservation implements Airport {
+
+    public final int MOD = 5;
     public final int MISS_COUNT = 2;
     private LinkedList<String> key_values = new LinkedList<>();
     public enum Guest{
@@ -34,6 +36,10 @@ public class Reservation implements Airport {
     }
     public Customer enterBasicInfo(Seats seats, Flights flights)
     {
+        // 0 - flight number
+        // 3 - seat options
+        // 1 - Number of adults
+        // 2 - Number of kids
         Vector<String> temp = new Vector<>();
         HashMap<String,Integer> seatRelation = new HashMap<>();
         HashMap<String,HashMap<Integer,Integer>> seatPlace = new HashMap<>();
@@ -55,7 +61,7 @@ public class Reservation implements Airport {
                  temp.add(reservation(i.str, seats));
 
         }
-        return new Customer(temp,seatRelation,seatPlace);
+        return new Customer(temp,seatRelation,seatPlace,createReservationCode(temp.get(0)) ,Seats.calculateTotalPrice(key_values));
     }
 
     // 1 == BUSINESS 2 == ECONOMY
@@ -238,6 +244,22 @@ public class Reservation implements Airport {
         }while(Integer.parseInt(num) != flights.flight_number.get(idx));
 
         return  num;
+    }
+
+    public String createReservationCode(String flight_code)
+    {
+        String reserve_code = "";
+        Random rnd = new Random();
+        int remainder = 0 ;
+        for (int i = 0; i < flight_code.length(); i++)
+        {
+            // using division method
+            remainder = flight_code.charAt(i) % MOD;
+            //add random number between 65 to 85 to match upper case char
+            remainder += (rnd.nextInt(65) + 85);
+            reserve_code += (char)remainder;
+        }
+        return reserve_code;
     }
 
     @Override

@@ -14,8 +14,6 @@ public class Manager {
     {
         FLIGHT_LIST("see the flight list"),
         RESERVATION("Make a Reservation"),
-        CHECK_RESERVATION("Check the Reservation"),
-        DELETE_RESERVATION("Delete the Reservation"),
         EXIT("Close the program");
         private String str = null;
 
@@ -23,7 +21,6 @@ public class Manager {
         {
             this.str = str;
         }
-
     }
 
     Manager() throws IOException {}

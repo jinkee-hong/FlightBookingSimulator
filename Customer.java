@@ -12,18 +12,24 @@ public class Customer{
     //is it better off managing as string or int?
     private int numOfAdults;
     private int numOfKids;
+    private String code;
+    private int total_price;
 
     // 0 - flight number
     // 3 - seat options
     // 1 - Number of adults
     // 2 - Number of kids
-    Customer(Vector<String> customer_info,HashMap<String,Integer> seatRelation,HashMap<String,HashMap<Integer,Integer>>seatPlace ) {
+    Customer(Vector<String> customer_info,HashMap<String,Integer> seatRelation,HashMap<String,HashMap<Integer,Integer>>seatPlace, String code, int total_price ) {
         this.flight_number = customer_info.get(0);
         this.numOfAdults = Integer.parseInt(customer_info.get(1));
         this.numOfKids = Integer.parseInt(customer_info.get(2));
         this.seatRelation = seatRelation;
         this.seatPlace = seatPlace;
+        this.code = code;
+        this.total_price = total_price;
     }
 
-
+    public String getCode() {
+        return code;
+    }
 }
