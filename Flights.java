@@ -38,7 +38,7 @@ public class Flights implements Airport {
         }
     }
 
-    Flights() throws FileNotFoundException, IOException {
+    Flights() throws IOException {
         fileReader = new FileReader("airports.txt");
         airport_name = new LinkedList<String>();
         location = new LinkedList<String>();
@@ -114,9 +114,8 @@ public class Flights implements Airport {
     }
 
     @Override
-    public void showList() throws IOException{
-        parseList(); // parse text into LinkedList to show them
-         for (int j = 0; j < airport_name.size(); j++) {
+    public void showList()  {
+          for (int j = 0; j < airport_name.size(); j++) {
             System.out.println((j + 1) + ". " + airport_name.get(j));
              System.out.println("-----------------------------------");
              System.out.println("Flight Number : " + flight_number.get(j));

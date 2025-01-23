@@ -7,8 +7,7 @@ public class Main {
         Scanner sc =new Scanner(System.in);
         Manager mng = new Manager();
 
-        LinkedList<Customer> customers = new LinkedList<>();
-        String search_token = "";
+         String search_token = "";
         int int_search_token = -1;
 
         while(true)
@@ -16,11 +15,8 @@ public class Main {
             switch(mng.startScreen())
             {
                 //질문
-                case 1: // Under case 1 , it has two sub options
-                    System.out.println("SUB OPTIONS");
-                    System.out.println("--------------");
-                    System.out.println("1. PRINT FLIGHT OPTIONS");
-                    System.out.println("2. SEARCH OPTIONS");
+                case 1:
+                    mng.printSubOptions("PRINT FLIGHT OPTIONS","SEARCH OPTIONS","GO BACK");
                     switch(mng.choiceOptions())
                     {
                         case 1:
@@ -37,22 +33,21 @@ public class Main {
                             else
                                 mng.flights.search(search_token);
                             break;
+                        case 3:
+                            break;
                     }
                     break;
 
                 case 2: // MAKE RESERVATION, Under case 2 , it has two sub options
-
-                    System.out.println("SUB OPTIONS");
-                    System.out.println("--------------");
-                    System.out.println("1. MAKE RESERVATION ");
-                    System.out.println("2. SEARCH OPTIONS");
+                    mng.printSubOptions("MAKE RESERVATION","SEARCH OPTIONS","GO BACK");
                     switch(mng.choiceOptions())
                     {
                         case 1:
-                            customers.add(mng.reservation.enterBasicInfo(mng.seats,mng.flights));
+                            mng.customers.add(mng.reservation.enterBasicInfo(mng.seats,mng.flights));
                             break;
                         case 2:
-
+                            break;
+                        case 3:
                             break;
                     }
                     break;

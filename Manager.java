@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class Manager {
+    public LinkedList<Customer> customers = new LinkedList<>();
     public Reservation reservation = new Reservation();
     public Flights flights = new Flights();
     public Seats seats =  new Seats();
@@ -76,6 +77,16 @@ public class Manager {
         }
         return false;
     }
+
+    public void printSubOptions(String...args)
+    {
+        System.out.println("SUB OPTIONS");
+        System.out.println("--------------");
+        for (int i = 0; i < args.length; i++) {
+            System.out.println((i+1)+"."+args[i]);
+        }
+    }
+
 
 
     // TODO : add user purchased history
