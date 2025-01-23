@@ -7,8 +7,24 @@ public class Seats implements Airport{
     /** initialized by true value */
     public boolean[][] avail_seats = new boolean[PLANE_ROW][PLANE_COL];
     public int numberOfSeats = PLANE_ROW * PLANE_COL;
-    public int numberOfEconomy = PLANE_ROW   / 2;
-    public int numberOfBusiness = PLANE_COL   / 2;
+
+    public enum Price{
+        ADULTS(100000),
+        KIDS(50000),
+        BABIES(30000);
+
+        private int price;
+
+        Price(int price)
+        {
+            this.price = price;
+        }
+
+        public int getPrice() {
+            return price;
+        }
+    }
+
 
     public enum SeatOptions
     {
@@ -98,6 +114,30 @@ public class Seats implements Airport{
             }
             System.out.println();
         }
+    }
+
+    public static int calculateTotalPrice(LinkedList<String> key)
+    {
+        int ad = 0, kids =0 ,babies = 0,price=0 ;
+
+        for (int i = 0; i < key.size(); i++)
+        {
+            if(key.get(i).trim().equals("adults"))
+            {
+                ad++;
+            }
+            else if(key.get(i).trim().equals("kids"))
+            {
+                kids++;
+            }
+            else if(key.get(i).trim().equals("babies"))
+            {
+                babies++;
+            }
+        }
+
+        price = ad * Price.ADULTS.getPrice() + kids * Price.KIDS.getPrice() + babies * Price.BABIES.getPrice();
+        return price;
     }
 
 

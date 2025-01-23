@@ -14,7 +14,6 @@ public class Main {
         {
             switch(mng.startScreen())
             {
-                //질문
                 case 1:
                     mng.printSubOptions("PRINT FLIGHT OPTIONS","SEARCH OPTIONS","GO BACK");
                     switch(mng.choiceOptions())
@@ -44,6 +43,8 @@ public class Main {
                     {
                         case 1:
                             mng.customers.add(mng.reservation.enterBasicInfo(mng.seats,mng.flights));
+                            System.out.println("RESERVATION CODE : " + mng.customers.getLast().getCode());
+                            System.out.println("[ ** RESERVATION COMPLETED ! ** ]");
                             break;
                         case 2:
                             break;
@@ -51,12 +52,7 @@ public class Main {
                             break;
                     }
                     break;
-
-                case 3: // CHECK RESERVATION
-                    break;
-                case 4:// DELETE RESERVATION
-                    break;
-                case 5://EXIT
+                case 3://EXIT
                     mng.exit();
                     break;
 
