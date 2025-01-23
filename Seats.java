@@ -4,11 +4,11 @@ import java.util.*;
 
 public class Seats implements Airport{
 
-    /** initialized by False value */
-    private boolean[][] avail_seats = new boolean[PLANE_ROW][PLANE_COL];
+    /** initialized by true value */
+    public boolean[][] avail_seats = new boolean[PLANE_ROW][PLANE_COL];
     public int numberOfSeats = PLANE_ROW * PLANE_COL;
-    public int numberOfEconomy = PLANE_ROW * PLANE_COL / 2;
-    public int numberOfBusiness = PLANE_COL * PLANE_ROW / 2;
+    public int numberOfEconomy = PLANE_ROW   / 2;
+    public int numberOfBusiness = PLANE_COL   / 2;
 
     public enum SeatOptions
     {
@@ -26,8 +26,19 @@ public class Seats implements Airport{
             return str;
         }
 
-        public int getDesignated_number() {
-            return designated_number;
+        public String getDesignated_number(int designated_number) {
+            if(designated_number == 1 )
+            {
+                return ECONOMY.getStr();
+            }
+            else if(designated_number == 2)
+            {
+                return BUSINESS.getStr();
+            }
+            else
+            {
+                return "WRONG INPUT";
+            }
         }
     }
 
@@ -39,7 +50,7 @@ public class Seats implements Airport{
     {
         for (int i = 0; i < PLANE_ROW; i++) {
             for (int j = 0; j < PLANE_COL; j++) {
-                avail_seats[i][j] = false;
+                avail_seats[i][j] = true;
             }
         }
     }
@@ -73,6 +84,14 @@ public class Seats implements Airport{
         System.out.println();
 
         for (int i = 0; i < PLANE_ROW; i++) {
+            if( i == 0 )
+            {
+                System.out.println("   BUSINESS AREA \n");
+            }
+            else if(i == PLANE_ROW / 2)
+            {
+                System.out.println("    ECONOMY AREA \n");
+            }
             System.out.print((i+1)+ "\t");
             for (int j = 0; j < PLANE_COL; j++) {
                 System.out.print(avail_seats[i][j] + "\t");
@@ -80,6 +99,13 @@ public class Seats implements Airport{
             System.out.println();
         }
     }
+
+
+    public boolean checkSeatAvailability(int row, int col)
+    {
+        return avail_seats[row][col];
+    }
+
     @Override
     public LinkedList<?> deleteUserInfo()
     {
@@ -92,7 +118,21 @@ public class Seats implements Airport{
     @Override
     public void search(String str)
     {
+        int cnt = 0 ;
+        for (int i = 0; i < avail_seats.length; i++) {
+            for (int j = 0; j < avail_seats[i].length; j++) {
+                if(avail_seats[i][j])
+                {
+                    cnt++;
+                }
+            }
+        }
 
+        if(cnt == PLANE_ROW * PLANE_COL)
+        {
+            System.out.println("NO MORE SEATS TO BOOK!");
+            System.out.println("REQUIRE TO NEW FLIGHTS AND SEATS!");
+        }
     }
 
 }

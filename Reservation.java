@@ -3,6 +3,7 @@ import java.util.*;
 
 public class Reservation implements Airport {
     public final int MISS_COUNT = 2;
+    private LinkedList<String> key_values = new LinkedList<>();
     public enum Guest{
         ADULTS("adults"),
         KIDS("Kids"),
@@ -35,7 +36,7 @@ public class Reservation implements Airport {
     {
         Vector<String> temp = new Vector<>();
         HashMap<String,Integer> seatRelation = new HashMap<>();
-        HashMap<String,Integer[][]> seatPlace = new HashMap<>();
+        HashMap<String,HashMap<Integer,Integer>> seatPlace = new HashMap<>();
         for( BasicInfo i :  BasicInfo.values())
         {
             System.out.println("> ENTER THE "+ i.str);
@@ -84,6 +85,7 @@ public class Reservation implements Airport {
                 limit = sc.nextInt();
             } while (limit < 0 || limit > Seats.SeatOptions.values().length);
             seatRelation.put(Guest.ADULTS.getStr() + (i+1),limit);
+            key_values.add(Guest.ADULTS.getStr() + (i+1));
         }
 
         // kids seats type
@@ -94,17 +96,89 @@ public class Reservation implements Airport {
                 limit = sc.nextInt();
             } while (limit < 0 || limit > Seats.SeatOptions.values().length);
             seatRelation.put(Guest.KIDS.getStr()+(i+1),limit);
+            key_values.add(Guest.KIDS.getStr() + (i+1));
         }
     }
 
     // 1 == BUSINESS 2 == ECONOMY
-    public HashMap<String,Integer[][]> selectSeatNumber(HashMap<String,Integer> seatLevel,HashMap<String,Integer[][]> seatPlace,Seats seats)
+    public void selectSeatNumber(HashMap<String,Integer> seatLevel,HashMap<String,HashMap<Integer,Integer>> seatPlace,Seats seats)
     {
         Scanner sc = new Scanner(System.in);
+        HashMap<Integer,Integer> temp = new HashMap<>();
         int row = -1, col = -1 ;
+        int bis_row_max = PLANE_ROW / 2 ;
+        int eco_row_max = PLANE_ROW ;
 
         // iterate by number of seat options
+        for (int i = 0; i < key_values.size();)
+        {
+            seats.showList();
+            System.out.println();
+            // row
+            do {
 
+                System.out.println("HELLO ! " + key_values.get(i));
+                System.out.println("PLEASE INPUT ROW YOU WANT");
+                System.out.println("CURRENTLY YOU HAVE CHOSEN " + Seats.SeatOptions.BUSINESS.getDesignated_number(seatLevel.get(key_values.get(i))) + " OPTION");
+                System.out.println("--------------------------------------------------------------------------");
+
+                row = sc.nextInt();
+
+
+                // if seat is business    row > bis_row_max || row < 0
+                if ( seatLevel.get(key_values.get(i)) == 1 && ( row > eco_row_max || row < bis_row_max ) ) {
+                    System.out.println("[ ** NOT A CORRECT INPUT ** ]");
+                    System.out.println("[ ** PLEASE MAKE YOUR INPUT AGAIN ** ]");
+                    System.out.println("---------------------------------------");
+                    System.out.println("YOUR MINIMUM ROW IS " + eco_row_max +"\n");
+                }
+                else if( seatLevel.get(key_values.get(i)) == 2 && (row > bis_row_max || row < 0 ) ) // if seat is economy
+                {
+                    System.out.println("[ ** NOT A CORRECT INPUT ** ]");
+                    System.out.println("[ ** PLEASE MAKE YOUR INPUT AGAIN ** ]");
+                    System.out.println("---------------------------------------");
+                     System.out.println("YOUR MAXIMUM ROW IS " + bis_row_max +"\n");
+                }
+
+                if(seatLevel.get(key_values.get(i)) == 1 && (row <= eco_row_max && row > bis_row_max ) )
+                {
+                    row--;
+                    break;
+                }
+                else if(seatLevel.get(key_values.get(i)) == 2 && (row >= 0 && row < bis_row_max) )
+                {
+                    row--;
+                    break;
+                }
+            }while(true);
+
+            // col
+            do {
+                System.out.println("PLEASE INPUT COL YOU WANT");
+                System.out.println("---------------------------------------");
+                col = sc.nextInt();
+                col--;
+                if(col > PLANE_COL || col < 0)
+                {
+                    System.out.println(" PLEASE CORRECT YOUR INPUT ");
+                }
+            }while(col > PLANE_COL || col < 0 );
+
+            // if the seat is available
+            if(seats.checkSeatAvailability(row,col))
+            {
+                temp.put(row,col);
+                seats.avail_seats[row][col] = false;
+                seats.numberOfSeats--;
+                seatPlace.put(key_values.get(i),temp);
+                i++;
+            }
+            else
+            {
+                System.out.println("[ ** THE SEAT IS NOT AVAILABLE ** ]");
+                System.out.println("[ ** PLEASE MAKE ANOTHER INPUT ** ]");
+            }
+        }
     }
 
 
@@ -154,7 +228,7 @@ public class Reservation implements Airport {
             if(num.equals("HELP"))
             {
                 flights.showList();
-                num = "0"; // reinitialize num variable
+                num = "-1"; // reinitialize num variable
             }
 
             idx++;
