@@ -249,14 +249,13 @@ public class Reservation implements Airport {
     public String createReservationCode(String flight_code)
     {
         String reserve_code = "";
-        Random rnd = new Random();
         int remainder = 0 ;
         for (int i = 0; i < flight_code.length(); i++)
         {
             // using division method
             remainder = flight_code.charAt(i) % MOD;
             //add random number between 65 to 85 to match upper case char
-            remainder += (rnd.nextInt(65) + 85);
+            remainder = ( (remainder* 26) + 65  );
             reserve_code += (char)remainder;
         }
         return reserve_code;
@@ -278,7 +277,13 @@ public class Reservation implements Airport {
     }
 
     @Override
-    public void search(String str) {
-
+    public void search(String str)
+    {
+        for (int i = 0; i < key_values.size(); i++) {
+            if(str.equalsIgnoreCase(key_values.get(i)))
+            {
+                System.out.println(key_values.get(i));
+            }
+        }
     }
 }

@@ -1,5 +1,3 @@
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class Seats implements Airport{
@@ -159,8 +157,10 @@ public class Seats implements Airport{
     public void search(String str)
     {
         int cnt = 0 ;
-        for (int i = 0; i < avail_seats.length; i++) {
-            for (int j = 0; j < avail_seats[i].length; j++) {
+        for (int i = 0; i < avail_seats.length; i++)
+        {
+            for (int j = 0; j < avail_seats[i].length; j++)
+            {
                 if(avail_seats[i][j])
                 {
                     cnt++;

@@ -84,6 +84,16 @@ public class Manager {
         }
     }
 
+    public void printOptions(Enum<?>[] template)
+    {
+        if( template[0] instanceof SearchTagList)
+        {
+            for( SearchTagList i : SearchTagList.values())
+            {
+                System.out.println(i.getOrder() + ". " + i.getStr());
+            }
+        }
+    }
 
 
     // TODO : add user purchased history

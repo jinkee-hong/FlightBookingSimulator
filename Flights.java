@@ -166,9 +166,6 @@ public class Flights implements Airport {
 
     public int[] createRandomDate()
     {
-        Scanner sc = new Scanner(System.in);
-        String temp = "";
-        int curr_year = Calendar.getInstance().get(Calendar.YEAR);
         int year = 0, month = 0, day = 0;
         long seed = System.currentTimeMillis();
         // random for creating random date
